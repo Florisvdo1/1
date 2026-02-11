@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0B1220" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- iOS "Add to Home Screen" -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PVA" />
+
+  <title>PVA, adres en checkout velden</title>
+
+  <!-- Inline manifest (data URL). Works on Chromium; iOS uses meta tags above. -->
+  <link rel="manifest" id="manifestLink" />
+
+  <!-- Favicon: blue background, white "Dreef 2" -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" id="iconLink" />
+
+  <style>
+    :root{
+      --bg:#070B14;
+      --panel:#0B1220;
+      --panel2:#0F1A2F;
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.16);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --muted2:rgba(255,255,255,.55);
+      --good:#22C55E;
+      --brand:#0EA5E9;
+      --warn:#F59E0B;
+      --bad:#EF4444;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --r:18px;
+      --r2:14px;
+      --h:46px;
+      --pad:14px;
+      --gap:14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(14,165,233,.18), transparent 55%),
+        radial-gradient(900px 650px at 85% 10%, rgba(34,197,94,.12), transparent 60%),
+        radial-gradient(900px 650px at 50% 115%, rgba(245,158,11,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg), #05070F 70%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding: calc(18px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+    }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:16px;
+    }
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+    }
+    h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+      font-weight:760;
+      line-height:1.1;
+    }
+    .sub{
+      margin:0;
+      font-size:12.5px;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    .chiprow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:6px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius:999px;
+      color:var(--muted);
+      font-size:12px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:99px;
+      background:rgba(255,255,255,.25);
+      box-shadow:0 0 0 3px rgba(255,255,255,.05);
+    }
+    .dot.ok{background:rgba(34,197,94,.95); box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+    .dot.off{background:rgba(245,158,11,.95); box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      height:42px;
+      padding:0 12px;
+      border-radius:12px;
+      border:1px solid var(--stroke2);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      color:var(--text);
+      font-weight:650;
+      font-size:12.5px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+      box-shadow:0 8px 18px rgba(0,0,0,.22);
+      touch-action:manipulation;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{
+      border-color:rgba(14,165,233,.55);
+      background:linear-gradient(180deg, rgba(14,165,233,.22), rgba(14,165,233,.10));
+    }
+    .btn.good{
+      border-color:rgba(34,197,94,.55);
+      background:linear-gradient(180deg, rgba(34,197,94,.22), rgba(34,197,94,.10));
+    }
+    .btn.ghost{
+      background:transparent;
+      box-shadow:none;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:var(--gap);
+      align-items:stretch;
+    }
+    @media (min-width: 860px){
+      .grid{grid-template-columns:1fr 1fr}
+      h1{font-size:20px}
+    }
+    .card{
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      min-height: 220px;
+    }
+    .card .head{
+      padding:14px 14px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .card .head .hleft{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .card .head .htitle{
+      margin:0;
+      font-weight:760;
+      font-size:13.5px;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .card .head .hmeta{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .card .body{
+      padding:12px 14px 14px;
+    }
+
+    .fields{
+      display:grid;
+      gap:12px;
+    }
+    .field{
+      display:grid;
+      gap:7px;
+    }
+    .labelrow{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:10px;
+      min-width:0;
+    }
+    .label{
+      font-size:12px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:0;
+    }
+    .hint{
+      font-size:11.5px;
+      color:var(--muted2);
+      font-family:var(--mono);
+      user-select:none;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:55%;
+      text-align:right;
+    }
+    .row{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    input[type="text"], input[type="email"], input[type="tel"]{
+      width:100%;
+      height:var(--h);
+      padding:0 46px 0 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(8,10,18,.65);
+      color:var(--text);
+      font-size:14px;
+      letter-spacing:.2px;
+      outline:none;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+    input:focus{
+      border-color:rgba(14,165,233,.65);
+      box-shadow:0 0 0 4px rgba(14,165,233,.14);
+    }
+    input[readonly]{cursor:pointer}
+    .suffix{
+      position:absolute;
+      right:8px;
+      top:50%;
+      transform:translateY(-50%);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .mini{
+      width:34px;height:34px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.9);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      user-select:none;
+      touch-action:manipulation;
+    }
+    .mini:active{transform:translateY(-50%) translateY(1px)}
+    .mini.copy{
+      font-size:14px;
+    }
+    .mini.edit{
+      font-size:13px;
+    }
+
+    .radio{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      height:42px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill input{accent-color: var(--brand)}
+    .pill span{font-size:13px;color:var(--text)}
+    .divider{
+      height:1px;
+      background:rgba(255,255,255,.08);
+      margin:12px 0;
+    }
+
+    .kvs{
+      display:grid;
+      gap:10px;
+    }
+    .kv{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+    }
+    .kv .k{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .kv .k .t{
+      font-size:12px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .kv .k .v{
+      font-size:13.5px;
+      font-family:var(--mono);
+      color:rgba(255,255,255,.88);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width: 62vw;
+    }
+    @media (min-width: 860px){
+      .kv .k .v{max-width: 420px}
+    }
+    .kv .right{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-shrink:0;
+    }
+    .tag{
+      font-size:11px;
+      color:rgba(255,255,255,.78);
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom: calc(18px + env(safe-area-inset-bottom));
+      transform:translateX(-50%);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(10,12,20,.86);
+      color:rgba(255,255,255,.92);
+      font-size:12.5px;
+      display:none;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 16px 40px rgba(0,0,0,.50);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index:9999;
+    }
+    .toast.show{display:flex}
+    .toast b{font-weight:800}
+    .smallnote{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    .mono{font-family:var(--mono)}
+    .foot{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+    .foot strong{color:rgba(255,255,255,.9)}
+    .hidden{display:none !important}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>PVA, checkout velden (copy, paste, klaar)</h1>
+        <p class="sub">Alles blijft lokaal op dit device (LocalStorage). Geen netwerk calls, geen tracking. Tip: host via HTTPS voor "Zet op beginscherm".</p>
+        <div class="chiprow">
+          <div class="chip"><span class="dot" id="netDot"></span><span id="netTxt">status</span></div>
+          <div class="chip"><span class="dot ok"></span><span>iPhone, iPad, desktop responsive</span></div>
+          <div class="chip"><span class="dot ok"></span><span>per veld 1 tap copy</span></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="copyAllBtn" type="button">Copy alles</button>
+        <button class="btn good" id="copyLinesBtn" type="button">Copy regels</button>
+        <button class="btn" id="toggleEditBtn" type="button">Bewerk</button>
+        <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Identiteit -->
+      <section class="card">
+        <div class="head">
+          <div class="hleft">
+            <p class="htitle">Identiteit</p>
+            <p class="hmeta">Voornaam, tussenvoegsel, achternaam, aanhef</p>
+          </div>
+          <span class="tag" id="editTag">read-only</span>
+        </div>
+        <div class="body">
+          <div class="fields">
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Aanhef</div>
+                <div class="hint">Mevrouw, De heer, Geen</div>
+              </div>
+              <div class="radio" role="radiogroup" aria-label="Aanhef">
+                <label class="pill"><input type="radio" name="aanhef" value="Mevrouw" /> <span>Mevrouw</span></label>
+                <label class="pill"><input type="radio" name="aanhef" value="De heer" /> <span>De heer</span></label>
+                <label class="pill"><input type="radio" name="aanhef" value="Liever geen van beide" checked /> <span>Liever geen van beide</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Voornaam</div>
+                <div class="hint">Voornaam</div>
+              </div>
+              <div class="row">
+                <input id="voornaam" type="text" value="Floris" readonly />
+                <div class="suffix">
+                  <div class="mini copy" data-copy="#voornaam" title="Copy">Copy</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Tussenvoegsel</div>
+                <div class="hint">Tussenvoegsel (optioneel)</div>
+              </div>
+              <div class="row">
+                <input id="tussen" type="text" value="van den" readonly />
+                <div class="suffix">
+                  <div class="mini copy" data-copy="#tussen" title="Copy">Copy</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Achternaam</div>
+                <div class="hint">Achternaam</div>
+              </div>
+              <div class="row">
+                <input id="achternaam" type="text" value="Oever" readonly />
+                <div class="suffix">
+                  <div class="mini copy" data-copy="#achternaam" title="Copy">Copy</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Bedrijfsnaam</div>
+                <div class="hint">Company (optioneel)</div>
+              </div>
+              <div class="row">
+                <input id="bedrijf" type="text" value="OEVER.ART" readonly />
+                <div class="suffix">
+                  <div class="mini copy" data-copy="#bedrijf" title="Copy">Copy</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">
+                <div class="t">Full name (webshops)</div>
+                <div class="v" id="fullNameMono"></div>
+              </div>
+              <div class="right">
+                <span class="tag">Naam</span>
+                <button class="btn" type="button" id="copyFullNameBtn">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Adres -->
+      <section class="card">
+        <div class="head">
+          <div class="hleft">
+            <p class="htitle">Adres</p>
+            <p class="hmeta">Past op velden uit je screenshots (Postcode, Huisnr, Plaats, Straat)</p>
+          </div>
+          <span class="tag">NL</span>
+        </div>
+
+        <div class="body">
+          <div class="fields">
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Straatnaam</div>
+                <div class="hint">Straatnaam</div>
+              </div>
+              <div class="row">
+                <input id="straat" type="text" value="Dreef" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#straat" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Huisnr</div>
+                <div class="hint">Huisnr</div>
+              </div>
+              <div class="row">
+                <input id="huisnr" type="text" value="2" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#huisnr" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Toevoeging, unit</div>
+                <div class="hint">Toevoeging, Appartement</div>
+              </div>
+              <div class="row">
+                <input id="toevoeging" type="text" value="0045" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#toevoeging" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Postcode</div>
+                <div class="hint">Postcode</div>
+              </div>
+              <div class="row">
+                <input id="postcode" type="text" value="2012 HR" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#postcode" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Plaats</div>
+                <div class="hint">Plaats, City</div>
+              </div>
+              <div class="row">
+                <input id="plaats" type="text" value="Haarlem" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#plaats" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Land, regio</div>
+                <div class="hint">Land, Region</div>
+              </div>
+              <div class="row">
+                <input id="land" type="text" value="Nederland" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#land" title="Copy">Copy</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">
+                <div class="t">Straat en huisnummer (zoals screenshot 2)</div>
+                <div class="v" id="streetLineMono"></div>
+              </div>
+              <div class="right">
+                <span class="tag">Adresregel 1</span>
+                <button class="btn" type="button" id="copyStreetLineBtn">Copy</button>
+              </div>
+            </div>
+
+            <div class="kv">
+              <div class="k">
+                <div class="t">Appartement, unit (zoals screenshot 2)</div>
+                <div class="v" id="unitLineMono"></div>
+              </div>
+              <div class="right">
+                <span class="tag">Adresregel 2</span>
+                <button class="btn" type="button" id="copyUnitLineBtn">Copy</button>
+              </div>
+            </div>
+
+            <div class="kv">
+              <div class="k">
+                <div class="t">Volledig adres (1 regel)</div>
+                <div class="v" id="fullAddrMono"></div>
+              </div>
+              <div class="right">
+                <span class="tag">Alles</span>
+                <button class="btn" type="button" id="copyFullAddrBtn">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="smallnote" style="margin:12px 2px 0;">
+            Tip: velden verschillen per webshop. Gebruik meestal: Straatnaam + Huisnr + Toevoeging (of Adresregel 1 + 2), plus Postcode + Plaats + Land.
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="card">
+        <div class="head">
+          <div class="hleft">
+            <p class="htitle">Contact</p>
+            <p class="hmeta">Telefoon en e-mail voor bestellingen</p>
+          </div>
+          <span class="tag">copy</span>
+        </div>
+
+        <div class="body">
+          <div class="fields">
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Telefoon</div>
+                <div class="hint">Telefoon</div>
+              </div>
+              <div class="row">
+                <input id="tel" type="tel" value="0646248653" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#tel" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">Telefoon (internationaal)</div>
+                <div class="hint">Phone (intl)</div>
+              </div>
+              <div class="row">
+                <input id="telIntl" type="tel" value="+31 6 46248653" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#telIntl" title="Copy">Copy</div></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="labelrow">
+                <div class="label">E-mailadres</div>
+                <div class="hint">E-mail</div>
+              </div>
+              <div class="row">
+                <input id="email" type="email" value="floris@oever.art" readonly />
+                <div class="suffix"><div class="mini copy" data-copy="#email" title="Copy">Copy</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">
+                <div class="t">Contact blok (2 regels)</div>
+                <div class="v" id="contactBlockMono"></div>
+              </div>
+              <div class="right">
+                <span class="tag">blok</span>
+                <button class="btn" type="button" id="copyContactBlockBtn">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="smallnote" style="margin:12px 2px 0;">
+            Veel checkouts accepteren elk formaat, NL nummer werkt vaak. Voor buitenlandse shops werkt de internationale variant meestal beter.
+          </p>
+        </div>
+      </section>
+
+      <!-- Quick mapping -->
+      <section class="card">
+        <div class="head">
+          <div class="hleft">
+            <p class="htitle">Snelle mapping (zoals webshops het vragen)</p>
+            <p class="hmeta">1 tap copy per "typische" label</p>
+          </div>
+          <span class="tag">checkout</span>
+        </div>
+
+        <div class="body">
+          <div class="kvs" id="mappingList"></div>
+
+          <div class="divider"></div>
+
+          <p class="smallnote" style="margin:0 2px;">
+            Bewerkmodus: pas waardes aan, ze worden lokaal opgeslagen. Reset zet alles terug naar standaard.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="foot">
+      <strong>Install (iPhone/iPad):</strong> open via HTTPS, deelknop, "Zet op beginscherm". Daarna start hij fullscreen.
+      <br/>
+      <strong>Privacy:</strong> dit bestand doet geen requests; alles blijft op jouw device.
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span></span><span id="toastTxt">Gekopieerd</span></div>
+
+  <script>
+    // ---------- Inline manifest + icon ----------
+    (function initPwaShell(){
+      const iconSvg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0EA5E9"/>
+              <stop offset="1" stop-color="#22C55E"/>
+            </linearGradient>
+          </defs>
+          <rect x="44" y="44" width="424" height="424" rx="96" fill="#0B1220" stroke="rgba(255,255,255,.10)" stroke-width="8"/>
+          <rect x="96" y="110" width="320" height="64" rx="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
+          <rect x="96" y="206" width="320" height="64" rx="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
+          <rect x="96" y="302" width="320" height="64" rx="22" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
+          <circle cx="386" cy="142" r="18" fill="url(#g)"/>
+          <circle cx="386" cy="238" r="18" fill="url(#g)"/>
+          <circle cx="386" cy="334" r="18" fill="url(#g)"/>
+          <text x="256" y="430" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="40" fill="rgba(255,255,255,.86)">PVA</text>
+        </svg>`;
+      const iconUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(iconSvg);
+      document.getElementById("iconLink").setAttribute("href", iconUrl);
+
+      const manifest = {
+        name: "PVA Checkout Velden",
+        short_name: "PVA",
+        start_url: ".",
+        scope: ".",
+        display: "standalone",
+        background_color: "#070B14",
+        theme_color: "#0B1220",
+        icons: [
+          { src: iconUrl, sizes: "any", type: "image/svg+xml", purpose: "any maskable" }
+        ]
+      };
+      const manifestUrl = "data:application/manifest+json;charset=utf-8," + encodeURIComponent(JSON.stringify(manifest));
+      document.getElementById("manifestLink").setAttribute("href", manifestUrl);
+
+      // Best-effort offline cache via blob service worker (not guaranteed everywhere).
+      if ("serviceWorker" in navigator){
+        try{
+          const swCode =
+`self.addEventListener('install', e => {
+  self.skipWaiting();
+  e.waitUntil(caches.open('pva-v1').then(c => c.addAll(['./'])));
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(self.clients.claim());
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => r)));
+});`;
+          const swUrl = URL.createObjectURL(new Blob([swCode], {type:"text/javascript"}));
+          navigator.serviceWorker.register(swUrl).catch(()=>{});
+        }catch(_){}
+      }
+    })();
+
+    // ---------- Data model ----------
+    const DEFAULTS = {
+      aanhef: "Liever geen van beide",
+      voornaam: "Floris",
+      tussen: "van den",
+      achternaam: "Oever",
+      bedrijf: "OEVER.ART",
+      straat: "Dreef",
+      huisnr: "2",
+      toevoeging: "0045",
+      postcode: "2012 HR",
+      plaats: "Haarlem",
+      land: "Nederland",
+      tel: "0646248653",
+      telIntl: "+31 6 46248653",
+      email: "floris@oever.art"
+    };
+
+    const KEY = "pva_checkout_v1";
+
+    function loadState(){
+      try{
+        const s = JSON.parse(localStorage.getItem(KEY) || "null");
+        return s && typeof s === "object" ? {...DEFAULTS, ...s} : {...DEFAULTS};
+      }catch(_){
+        return {...DEFAULTS};
+      }
+    }
+
+    function saveState(state){
+      try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(_){}
+    }
+
+    function $(sel){ return document.querySelector(sel); }
+    function $all(sel){ return Array.from(document.querySelectorAll(sel)); }
+
+    let state = loadState();
+    let editMode = false;
+
+    // ---------- UI wiring ----------
+    const ids = ["voornaam","tussen","achternaam","bedrijf","straat","huisnr","toevoeging","postcode","plaats","land","tel","telIntl","email"];
+
+    function setInput(id, val){
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.value = val ?? "";
+    }
+
+    function getAanhef(){
+      const r = document.querySelector('input[name="aanhef"]:checked');
+      return r ? r.value : DEFAULTS.aanhef;
+    }
+    function setAanhef(val){
+      const radios = $all('input[name="aanhef"]');
+      for (const r of radios){
+        r.checked = (r.value === val);
+      }
+    }
+
+    function derived(){
+      const fullName = [state.voornaam, state.tussen, state.achternaam].filter(Boolean).join(" ").replace(/\s+/g," ").trim();
+      const streetLine = [state.straat, state.huisnr].filter(Boolean).join(" ").trim();
+      const unitLine = (state.toevoeging || "").trim();
+      const fullAddr = [streetLine, unitLine, state.postcode, state.plaats, state.land].filter(Boolean).join(", ").replace(/\s+/g," ").trim();
+      const contactBlock = [state.email, state.tel].filter(Boolean).join(" | ").trim();
+      return {fullName, streetLine, unitLine, fullAddr, contactBlock};
+    }
+
+    function renderDerived(){
+      const d = derived();
+      $("#fullNameMono").textContent = d.fullName || "";
+      $("#streetLineMono").textContent = d.streetLine || "";
+      $("#unitLineMono").textContent = d.unitLine || "";
+      $("#fullAddrMono").textContent = d.fullAddr || "";
+      $("#contactBlockMono").textContent = d.contactBlock || "";
+    }
+
+    function applyStateToInputs(){
+      setAanhef(state.aanhef);
+      for (const id of ids) setInput(id, state[id]);
+      renderDerived();
+      renderMapping();
+    }
+
+    function setReadOnly(ro){
+      for (const id of ids){
+        const el = document.getElementById(id);
+        if (!el) continue;
+        el.readOnly = ro;
+      }
+      const tag = document.getElementById("editTag");
+      tag.textContent = ro ? "read-only" : "edit";
+      $("#toggleEditBtn").textContent = ro ? "Bewerk" : "Klaar";
+    }
+
+    function toast(msg){
+      const t = $("#toast");
+      $("#toastTxt").textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(()=>t.classList.remove("show"), 1400);
+    }
+
+    async function copyText(txt){
+      const text = (txt ?? "").toString();
+      if (!text) { toast("Leeg"); return false; }
+      try{
+        await navigator.clipboard.writeText(text);
+        toast("Gekopieerd");
+        logCopy(text);
+        return true;
+      }catch(_){
+        // Fallback
+        try{
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly","");
+          ta.style.position="fixed";
+          ta.style.top="-1000px";
+          ta.style.opacity="0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          toast("Gekopieerd");
+          logCopy(text);
+          return true;
+        }catch(__){
+          toast("Copy faalt");
+          return false;
+        }
+      }
+    }
+
+    function logCopy(text){
+      // Minimal "infinite scroll" log: grows as you copy.
+      // Stored locally.
+      try{
+        const k = KEY + "_log";
+        const arr = JSON.parse(localStorage.getItem(k) || "[]");
+        arr.push({t: Date.now(), v: text.slice(0, 180)});
+        while (arr.length > 250) arr.shift();
+        localStorage.setItem(k, JSON.stringify(arr));
+      }catch(_){}
+    }
+
+    function renderMapping(){
+      const d = derived();
+      const items = [
+        {k:"Voornaam", e:"", v:state.voornaam, tag:"first name"},
+        {k:"Achternaam", e:"", v:[state.tussen, state.achternaam].filter(Boolean).join(" ").trim(), tag:"last name"},
+        {k:"Naam (volledig)", e:"", v:d.fullName, tag:"full name"},
+        {k:"Straatnaam", e:"", v:state.straat, tag:"street"},
+        {k:"Huisnummer", e:"", v:state.huisnr, tag:"number"},
+        {k:"Toevoeging / unit", e:"", v:state.toevoeging, tag:"unit"},
+        {k:"Straat en huisnummer", e:"", v:d.streetLine, tag:"address 1"},
+        {k:"Appartement / suite / unit", e:"", v:d.unitLine, tag:"address 2"},
+        {k:"Postcode", e:"", v:state.postcode, tag:"zip"},
+        {k:"Plaats", e:"", v:state.plaats, tag:"city"},
+        {k:"Land / regio", e:"", v:state.land, tag:"country"},
+        {k:"Telefoon", e:"", v:state.tel, tag:"phone"},
+        {k:"Telefoon (intl)", e:"", v:state.telIntl, tag:"phone intl"},
+        {k:"E-mail", e:"", v:state.email, tag:"email"},
+        {k:"Bedrijf", e:"", v:state.bedrijf, tag:"company"}
+      ];
+      const host = $("#mappingList");
+      host.innerHTML = "";
+      for (const it of items){
+        const row = document.createElement("div");
+        row.className = "kv";
+        row.innerHTML = `
+          <div class="k">
+            <div class="t">${it.e} ${escapeHtml(it.k)}</div>
+            <div class="v mono">${escapeHtml(it.v || "")}</div>
+          </div>
+          <div class="right">
+            <span class="tag">${escapeHtml(it.tag)}</span>
+            <button class="btn" type="button">Copy</button>
+          </div>`;
+        row.querySelector("button").addEventListener("click", ()=>copyText(it.v || ""));
+        row.querySelector(".v").addEventListener("click", ()=>copyText(it.v || ""));
+        host.appendChild(row);
+      }
+    }
+
+    function escapeHtml(s){
+      return (s ?? "").toString()
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // ---------- Events ----------
+    function readInputsToState(){
+      const next = {...state};
+      next.aanhef = getAanhef();
+      for (const id of ids){
+        const el = document.getElementById(id);
+        if (!el) continue;
+        next[id] = el.value;
+      }
+      state = next;
+      saveState(state);
+      renderDerived();
+      renderMapping();
+    }
+
+    // Copy buttons for individual inputs
+    $all("[data-copy]").forEach(btn=>{
+      const sel = btn.getAttribute("data-copy");
+      btn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        const el = document.querySelector(sel);
+        copyText(el ? el.value : "");
+      });
+    });
+
+    // Copy on tap input (nice for mobile)
+    ids.forEach(id=>{
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("click", ()=>{
+        if (el.readOnly) copyText(el.value);
+      });
+      el.addEventListener("input", ()=>{
+        if (!editMode) return;
+        readInputsToState();
+      });
+    });
+
+    // Radio changes
+    $all('input[name="aanhef"]').forEach(r=>{
+      r.addEventListener("change", ()=>{
+        if (!editMode) return;
+        readInputsToState();
+      });
+    });
+
+    // Derived copy buttons
+    $("#copyFullNameBtn").addEventListener("click", ()=>copyText(derived().fullName));
+    $("#copyStreetLineBtn").addEventListener("click", ()=>copyText(derived().streetLine));
+    $("#copyUnitLineBtn").addEventListener("click", ()=>copyText(derived().unitLine));
+    $("#copyFullAddrBtn").addEventListener("click", ()=>copyText(derived().fullAddr));
+    $("#copyContactBlockBtn").addEventListener("click", ()=>copyText(derived().contactBlock));
+
+    // Copy everything as JSON and as pretty lines
+    $("#copyAllBtn").addEventListener("click", ()=>{
+      const payload = {
+        aanhef: getAanhef(),
+        voornaam: state.voornaam,
+        tussenvoegsel: state.tussen,
+        achternaam: state.achternaam,
+        bedrijfsnaam: state.bedrijf,
+        straatnaam: state.straat,
+        huisnummer: state.huisnr,
+        toevoeging_unit: state.toevoeging,
+        postcode: state.postcode,
+        plaats: state.plaats,
+        land: state.land,
+        telefoon: state.tel,
+        telefoon_internationaal: state.telIntl,
+        email: state.email,
+        afgeleid: {
+          naam_volledig: derived().fullName,
+          straat_en_huisnummer: derived().streetLine,
+          adresregel2_unit: derived().unitLine,
+          volledig_adres: derived().fullAddr
+        }
+      };
+      copyText(JSON.stringify(payload, null, 2));
+    });
+
+    $("#copyLinesBtn").addEventListener("click", ()=>{
+      const d = derived();
+      const lines = [
+        `Naam: ${d.fullName}`,
+        `Aanhef: ${getAanhef()}`,
+        `Adresregel 1: ${d.streetLine}`,
+        `Adresregel 2: ${d.unitLine}`,
+        `Postcode: ${state.postcode}`,
+        `Plaats: ${state.plaats}`,
+        `Land: ${state.land}`,
+        `Telefoon: ${state.tel}`,
+        `Telefoon (intl): ${state.telIntl}`,
+        `E-mail: ${state.email}`,
+        `Bedrijf: ${state.bedrijf}`
+      ].join("\n");
+      copyText(lines);
+    });
+
+    $("#toggleEditBtn").addEventListener("click", ()=>{
+      editMode = !editMode;
+      setReadOnly(!editMode);
+      $("#editTag").textContent = editMode ? "edit" : "read-only";
+      toast(editMode ? "Bewerkmodus" : "Read-only");
+    });
+
+    $("#resetBtn").addEventListener("click", ()=>{
+      state = {...DEFAULTS};
+      saveState(state);
+      applyStateToInputs();
+      toast("Reset");
+    });
+
+    // Network indicator
+    function net(){
+      const on = navigator.onLine;
+      $("#netDot").className = "dot " + (on ? "ok" : "off");
+      $("#netTxt").textContent = on ? "online" : "offline";
+    }
+    window.addEventListener("online", net);
+    window.addEventListener("offline", net);
+
+    // Init
+    (function init(){
+      net();
+      applyStateToInputs();
+      setReadOnly(true);
+
+      // Keep state in sync with stored values on load
+      state.aanhef = state.aanhef || DEFAULTS.aanhef;
+      setAanhef(state.aanhef);
+
+      // Populate derived monos
+      renderDerived();
+    })();
+  </script>
+</body>
+</html>
