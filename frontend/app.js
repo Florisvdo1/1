@@ -1,1 +1,0 @@
-document.getElementById("app").innerHTML = "<h2>Welkom</h2><p>PWA klaar.</p>";
