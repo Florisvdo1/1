@@ -1,0 +1,25 @@
+{
+  "name": "oever-art-website",
+  "version": "2.0.0",
+  "description": "OEVER.ART - Fine Art, Where Classic Meets Digital",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "thumbnails": "node scripts/resolve-thumbnails.js",
+    "thumbnails:refresh": "REFRESH_THUMBNAILS=true node scripts/resolve-thumbnails.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FLORISVDO1/1.git"
+  },
+  "keywords": [
+    "art",
+    "portraits",
+    "fine-art",
+    "digital-art",
+    "haarlem"
+  ],
+  "author": "Floris van de Oever <floris@oever.art>",
+  "license": "UNLICENSED",
+  "private": true
+}

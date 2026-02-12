@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OEVER.ART - Fine Art, Where Classic Meets Digital</title>
+  <meta name="description" content="Hyper-realistic portraits and fine-art prints crafted with obsessive attention to color, composition, and emotion in our Haarlem studio.">
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://cdn.werkaandemuur.nl">
+  <link rel="preconnect" href="https://www.google.com">
+  
+  <!-- Existing styles would be here - including our upgrade styles -->
+  <link rel="stylesheet" href="css/oever-upgrade.css">
+  
+  <style>
+    /* Base styles that would come from the original site */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #f5f5f5;
+      text-decoration: none;
+    }
+    
+    .logo span {
+      color: #c9a962;
+    }
+    
+    nav ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    
+    nav a {
+      color: #f5f5f5;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover {
+      color: #c9a962;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    
+    .hero-subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #c9a962;
+      margin-bottom: 30px;
+    }
+    
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 30px;
+    }
+    
+    .hero h1 em {
+      color: #c9a962;
+      font-style: italic;
+    }
+    
+    .hero p {
+      max-width: 600px;
+      font-size: 1.2rem;
+      color: #888;
+      margin-bottom: 40px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .btn {
+      padding: 16px 40px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    
+    .btn-primary {
+      background: #c9a962;
+      color: #0a0a0a;
+    }
+    
+    .btn-primary:hover {
+      background: #d4b978;
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #f5f5f5;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .btn-secondary:hover {
+      border-color: #c9a962;
+      color: #c9a962;
+    }
+    
+    /* Section Styles */
+    section {
+      padding: 100px 40px;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-header h2 {
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #c9a962;
+      margin-bottom: 20px;
+    }
+    
+    .section-header h3 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 400;
+    }
+    
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .product-card {
+      background: #141414;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    
+    .product-image {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+    
+    .product-image .placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      font-weight: 300;
+      color: #c9a962;
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(10,10,10,0.8);
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+    
+    .product-info {
+      padding: 24px;
+    }
+    
+    .product-title {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+    
+    .product-price {
+      color: #c9a962;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    
+    .product-description {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    
+    .product-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    
+    .product-tag {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #888;
+    }
+    
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #c9a962;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: gap 0.3s;
+    }
+    
+    .product-link:hover {
+      gap: 12px;
+    }
+    
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    
+    .category-btn {
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #888;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    
+    .category-btn:hover,
+    .category-btn.active {
+      border-color: #c9a962;
+      color: #c9a962;
+    }
+    
+    /* Commissions Section */
+    .commissions {
+      background: #0f0f0f;
+    }
+    
+    .process-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+    }
+    
+    .process-step-preview {
+      text-align: center;
+      padding: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 8px;
+    }
+    
+    .process-step-preview:hover {
+      background: rgba(255,255,255,0.03);
+    }
+    
+    .process-step-preview .step-num {
+      font-size: 3rem;
+      font-weight: 300;
+      color: #c9a962;
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+    
+    .process-step-preview:hover .step-num {
+      opacity: 1;
+    }
+    
+    .process-step-preview h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    
+    .process-step-preview p {
+      color: #888;
+      font-size: 0.9rem;
+    }
+    
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .pricing-card {
+      background: #141414;
+      border-radius: 12px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s;
+    }
+    
+    .pricing-card:hover {
+      border-color: rgba(201, 169, 98, 0.3);
+    }
+    
+    .pricing-card.featured {
+      border-color: #c9a962;
+      position: relative;
+    }
+    
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #c9a962;
+      color: #0a0a0a;
+      padding: 4px 16px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 20px;
+    }
+    
+    .pricing-card h4 {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 16px;
+    }
+    
+    .pricing-card .price {
+      font-size: 2.5rem;
+      color: #c9a962;
+      margin-bottom: 24px;
+    }
+    
+    .pricing-card .price span {
+      font-size: 1rem;
+      color: #888;
+    }
+    
+    .pricing-card ul {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    
+    .pricing-card li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #888;
+    }
+    
+    .pricing-card li::before {
+      content: '◆';
+      color: #c9a962;
+      font-size: 0.6rem;
+    }
+    
+    /* About Section */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+    
+    .about-text h3 {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+    }
+    
+    .about-text p {
+      color: #888;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    
+    .stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .stat h4 {
+      font-size: 2.5rem;
+      color: #c9a962;
+    }
+    
+    .stat p {
+      color: #888;
+      font-size: 0.9rem;
+    }
+    
+    .about-image {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      color: #c9a962;
+    }
+    
+    /* Contact Section */
+    .contact {
+      background: #0f0f0f;
+    }
+    
+    .contact-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Footer */
+    footer {
+      background: #080808;
+      padding: 80px 40px 40px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 60px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+    }
+    
+    .footer-section h4 {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c9a962;
+      margin-bottom: 20px;
+    }
+    
+    .footer-section p,
+    .footer-section a {
+      color: #888;
+      text-decoration: none;
+      line-height: 1.8;
+    }
+    
+    .footer-section a:hover {
+      color: #c9a962;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      nav ul {
+        gap: 20px;
+      }
+      
+      section {
+        padding: 60px 20px;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">OEVER<span>.</span>ART</a>
+    <nav>
+      <ul>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#commissions">Commissions</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <p class="hero-subtitle">Fine Art · Haarlem Studio</p>
+    <h1>Where Classic<br><em>Meets</em> Digital</h1>
+    <p>Hyper-realistic portraits and fine-art prints crafted with obsessive attention to color, composition, and emotion in our Haarlem studio.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary" data-open-inquiry>Commission a Portrait</button>
+      <a href="#collection" class="btn btn-secondary">View Collection</a>
+    </div>
+  </section>
+
+  <!-- Print Collection Section -->
+  <section id="collection">
+    <div class="section-header">
+      <h2>Print Collection</h2>
+      <h3>Art for Your<br>Walls</h3>
+      <p style="color: #888; max-width: 600px; margin: 20px auto 0;">Available as premium prints on canvas, aluminum, acrylic glass, ArtFrame, and more — fulfilled by Werk aan de Muur with free shipping.</p>
+    </div>
+    
+    <div class="category-filter">
+      <button class="category-btn active" data-filter="all">All</button>
+      <button class="category-btn" data-filter="flowers">Flowers</button>
+      <button class="category-btn" data-filter="portrait">Portrait</button>
+      <button class="category-btn" data-filter="birds">Birds</button>
+      <button class="category-btn" data-filter="digital">Digital Art</button>
+      <button class="category-btn" data-filter="color">Color</button>
+      <button class="category-btn" data-filter="collage">Collage</button>
+      <button class="category-btn" data-filter="nature">Nature</button>
+      <button class="category-btn" data-filter="butterflies">Butterflies</button>
+      <button class="category-btn" data-filter="fine-art">Fine-art</button>
+    </div>
+    
+    <div class="product-grid">
+      <!-- Product 1: Meisje met bloemen -->
+      <article class="product-card" data-categories="flowers portrait birds" data-product-url="https://www.werkaandemuur.nl/nl/werk/Meisje-met-bloemen/694349">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Meisje-met-bloemen/694349" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/694349_meisje-met-bloemen_fotoprint.jpg" 
+                 alt="Meisje met bloemen - Young woman wearing a crown of flowers with a bird on her hand"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Meisje met bloemen</h4>
+          <p class="product-price">from €114</p>
+          <p class="product-description">Young woman wearing a crown of flowers with a bird on her hand</p>
+          <div class="product-tags">
+            <span class="product-tag">Flowers</span>
+            <span class="product-tag">Portrait</span>
+            <span class="product-tag">Birds</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Meisje-met-bloemen/694349" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 2: Het meisje met de fijnste kleuren -->
+      <article class="product-card" data-categories="portrait digital color" data-product-url="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-fijnste-kleuren/864691">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-fijnste-kleuren/864691" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/864691_het-meisje-met-de-fijnste-kleuren_fotoprint.jpg" 
+                 alt="Het meisje met de fijnste kleuren - Portrait of a girl from Amsterdam in vibrant fine-art colors"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Het meisje met de fijnste kleuren</h4>
+          <p class="product-price">from €130</p>
+          <p class="product-description">Portrait of a girl from Amsterdam in vibrant fine-art colors</p>
+          <div class="product-tags">
+            <span class="product-tag">Portrait</span>
+            <span class="product-tag">Digital Art</span>
+            <span class="product-tag">Color</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-fijnste-kleuren/864691" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 3: Portret van een man -->
+      <article class="product-card" data-categories="collage nature portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Portret-van-een-man/826273">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Portret-van-een-man/826273" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/826273_portret-van-een-man_fotoprint.jpg" 
+                 alt="Portret van een man - The tree man where classic and digital converge with nature"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Portret van een man</h4>
+          <p class="product-price">from €112</p>
+          <p class="product-description">The tree man — where classic and digital converge with nature</p>
+          <div class="product-tags">
+            <span class="product-tag">Collage</span>
+            <span class="product-tag">Nature</span>
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Portret-van-een-man/826273" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 4: Meisje met de vlinders -->
+      <article class="product-card" data-categories="butterflies portrait fine-art" data-product-url="https://www.werkaandemuur.nl/nl/werk/Meisje-met-de-vlinders/857847">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Meisje-met-de-vlinders/857847" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/857847_meisje-met-de-vlinders_fotoprint.jpg" 
+                 alt="Meisje met de vlinders - Ethereal portrait surrounded by delicate butterflies"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Meisje met de vlinders</h4>
+          <p class="product-price">from €130</p>
+          <p class="product-description">Ethereal portrait surrounded by delicate butterflies</p>
+          <div class="product-tags">
+            <span class="product-tag">Butterflies</span>
+            <span class="product-tag">Portrait</span>
+            <span class="product-tag">Fine-art</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Meisje-met-de-vlinders/857847" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 5: Vrouw met rode bloemen -->
+      <article class="product-card" data-categories="flowers portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Vrouw-met-rode-bloemen/858102">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Vrouw-met-rode-bloemen/858102" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/858102_vrouw-met-rode-bloemen_fotoprint.jpg" 
+                 alt="Vrouw met rode bloemen - Woman adorned with striking red florals in a painterly composition"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Vrouw met rode bloemen</h4>
+          <p class="product-price">from €147</p>
+          <p class="product-description">Woman adorned with striking red florals in a painterly composition</p>
+          <div class="product-tags">
+            <span class="product-tag">Flowers</span>
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Vrouw-met-rode-bloemen/858102" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 6: Het meisje met de krullen -->
+      <article class="product-card" data-categories="portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-krullen/863445">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-krullen/863445" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/863445_het-meisje-met-de-krullen_fotoprint.jpg" 
+                 alt="Het meisje met de krullen - Captivating portrait featuring flowing curls and warm tones"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Het meisje met de krullen</h4>
+          <p class="product-price">from €158</p>
+          <p class="product-description">Captivating portrait featuring flowing curls and warm tones</p>
+          <div class="product-tags">
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-krullen/863445" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 7: Meisje in het blauw -->
+      <article class="product-card" data-categories="portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Meisje-in-het-blauw/865201">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Meisje-in-het-blauw/865201" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/865201_meisje-in-het-blauw_fotoprint.jpg" 
+                 alt="Meisje in het blauw - Serene portrait bathed in cool blue hues and soft light"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Meisje in het blauw</h4>
+          <p class="product-price">from €156</p>
+          <p class="product-description">Serene portrait bathed in cool blue hues and soft light</p>
+          <div class="product-tags">
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Meisje-in-het-blauw/865201" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 8: De vrouw met de gouden oorbel -->
+      <article class="product-card" data-categories="portrait fine-art" data-product-url="https://www.werkaandemuur.nl/nl/werk/De-vrouw-met-de-gouden-oorbel/860788">
+        <a href="https://www.werkaandemuur.nl/nl/werk/De-vrouw-met-de-gouden-oorbel/860788" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/860788_de-vrouw-met-de-gouden-oorbel_fotoprint.jpg" 
+                 alt="De vrouw met de gouden oorbel - A modern homage to the Dutch Masters"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">De vrouw met de gouden oorbel</h4>
+          <p class="product-price">from €174</p>
+          <p class="product-description">A modern homage to the Dutch Masters — gold, light, and grace</p>
+          <div class="product-tags">
+            <span class="product-tag">Portrait</span>
+            <span class="product-tag">Fine-art</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/De-vrouw-met-de-gouden-oorbel/860788" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 9: Botanisch meisje -->
+      <article class="product-card" data-categories="nature portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Botanisch-meisje/862834">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Botanisch-meisje/862834" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/862834_botanisch-meisje_fotoprint.jpg" 
+                 alt="Botanisch meisje - Where feminine beauty and botanical wonder intertwine"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Botanisch meisje</h4>
+          <p class="product-price">from €180</p>
+          <p class="product-description">Where feminine beauty and botanical wonder intertwine</p>
+          <div class="product-tags">
+            <span class="product-tag">Nature</span>
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Botanisch-meisje/862834" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 10: Vrouw met de paarse bloemen -->
+      <article class="product-card" data-categories="flowers portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Vrouw-met-de-paarse-bloemen/864088">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Vrouw-met-de-paarse-bloemen/864088" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/864088_vrouw-met-de-paarse-bloemen_fotoprint.jpg" 
+                 alt="Vrouw met de paarse bloemen - Rich purple florals frame a contemplative feminine portrait"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Vrouw met de paarse bloemen</h4>
+          <p class="product-price">from €199</p>
+          <p class="product-description">Rich purple florals frame a contemplative feminine portrait</p>
+          <div class="product-tags">
+            <span class="product-tag">Flowers</span>
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Vrouw-met-de-paarse-bloemen/864088" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 11: Het meisje met de rozen -->
+      <article class="product-card" data-categories="flowers portrait" data-product-url="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-rozen/862987">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-rozen/862987" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/862987_het-meisje-met-de-rozen_fotoprint.jpg" 
+                 alt="Het meisje met de rozen - Roses cascade around a delicate, ethereal figure"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Het meisje met de rozen</h4>
+          <p class="product-price">from €148</p>
+          <p class="product-description">Roses cascade around a delicate, ethereal figure</p>
+          <div class="product-tags">
+            <span class="product-tag">Flowers</span>
+            <span class="product-tag">Portrait</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Het-meisje-met-de-rozen/862987" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+
+      <!-- Product 12: Zelfportret met vlinders -->
+      <article class="product-card" data-categories="butterflies portrait digital" data-product-url="https://www.werkaandemuur.nl/nl/werk/Zelfportret-met-vlinders/858281">
+        <a href="https://www.werkaandemuur.nl/nl/werk/Zelfportret-met-vlinders/858281" target="_blank" rel="noopener">
+          <div class="product-image">
+            <img src="https://cdn.werkaandemuur.nl/858281_zelfportret-met-vlinders_fotoprint.jpg" 
+                 alt="Zelfportret met vlinders - Self-portrait interlaced with butterfly motifs"
+                 loading="lazy"
+                 width="400" height="500">
+            <span class="product-badge">View on WADM</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <h4 class="product-title">Zelfportret met vlinders</h4>
+          <p class="product-price">from €136</p>
+          <p class="product-description">Self-portrait interlaced with butterfly motifs</p>
+          <div class="product-tags">
+            <span class="product-tag">Butterflies</span>
+            <span class="product-tag">Portrait</span>
+            <span class="product-tag">Digital Art</span>
+          </div>
+          <a href="https://www.werkaandemuur.nl/nl/werk/Zelfportret-met-vlinders/858281" target="_blank" rel="noopener" class="product-link">
+            View & Order →
+          </a>
+        </div>
+      </article>
+    </div>
+    
+    <div style="text-align: center; margin-top: 60px;">
+      <a href="https://www.werkaandemuur.nl/nl/shop/Floris-van-de-Oever" target="_blank" rel="noopener" class="btn btn-secondary">
+        Browse All 36 Works on WADM →
+      </a>
+    </div>
+  </section>
+
+  <!-- Commissions Section -->
+  <section id="commissions" class="commissions">
+    <div class="section-header">
+      <h2>Bespoke Portraits</h2>
+      <h3>Commission a<br>Masterwork</h3>
+      <p style="color: #888; max-width: 600px; margin: 20px auto 0;">Each portrait is a singular creation — painstakingly composed from your vision, refined through consultation, and delivered as a museum-quality work of art.</p>
+    </div>
+    
+    <!-- Process Overview Navigation -->
+    <div class="process-overview">
+      <a href="#inquiry" class="process-step-preview">
+        <div class="step-num">01</div>
+        <h4>Inquiry</h4>
+        <p>Share your vision — a beloved photo, a concept, or an emotion you'd like immortalized.</p>
+      </a>
+      <a href="#consultancy" class="process-step-preview">
+        <div class="step-num">02</div>
+        <h4>Consultation</h4>
+        <p>A personal dialogue to refine style, palette, composition, and dimensions.</p>
+      </a>
+      <a href="#creation" class="process-step-preview">
+        <div class="step-num">03</div>
+        <h4>Creation</h4>
+        <p>Your portrait is meticulously crafted, pixel by pixel, in the Haarlem studio.</p>
+      </a>
+      <a href="#review" class="process-step-preview">
+        <div class="step-num">04</div>
+        <h4>Reveal & Refinement</h4>
+        <p>A private preview with up to two revision rounds until perfection.</p>
+      </a>
+      <a href="#delivery" class="process-step-preview">
+        <div class="step-num">05</div>
+        <h4>Delivery</h4>
+        <p>Your final masterpiece, delivered as a museum-grade print or high-res digital file.</p>
+      </a>
+    </div>
+
+    <!-- Detailed Process Sections -->
+    <div class="process-sections">
+      <!-- Step 1: Inquiry -->
+      <section id="inquiry" class="process-section">
+        <div class="step-header">
+          <div class="step-number">01</div>
+          <h3 class="step-title">Inquiry</h3>
+        </div>
+        <div class="step-content">
+          <p class="step-description">Start your journey. Get in touch to discuss your vision. Whether you have a clear concept or just a feeling you want to capture, every commission begins with a conversation.</p>
+          <ul class="step-features">
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">Share reference photos, mood boards, or conceptual ideas</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">Discuss timeline, size preferences, and intended display space</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">Receive preliminary guidance on style direction and feasibility</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">No obligation — explore possibilities before committing</span>
+            </li>
+          </ul>
+          <button class="step-cta" data-open-inquiry>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Request a Custom Inquiry
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 2: Consultancy -->
+      <section id="consultancy" class="process-section">
+        <div class="step-header">
+          <div class="step-number">02</div>
+          <h3 class="step-title">Consultation</h3>
+        </div>
+        <div class="step-content">
+          <p class="step-description">A personal dialog to refine your style palette, composition, and dimensions. This is where your vision takes shape through collaborative exploration. We'll discuss every detail that will make your portrait uniquely yours.</p>
+          <ul class="step-features">
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Video call or messaging</strong> — typically 30-45 minutes to explore your vision in depth</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Style direction</strong> — classical, contemporary, surreal, or a unique fusion tailored to your taste</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Color palette selection</strong> — warm tones, cool atmospheres, vibrant expressions, or muted elegance</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Composition planning</strong> — framing, background elements, symbolic details, and focal points</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Size and material recommendations</strong> — optimized for your space and display preferences</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Outcome:</strong> A detailed creative brief with style directions, palette swatches, and composition sketches</span>
+            </li>
+          </ul>
+          <p style="color: #888; margin-bottom: 20px;"><em>What to prepare: Reference images, color preferences, and any symbolic elements you'd like incorporated.</em></p>
+          <button class="step-cta" data-open-inquiry>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Request a Custom Inquiry
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 3: Creation -->
+      <section id="creation" class="process-section">
+        <div class="step-header">
+          <div class="step-number">03</div>
+          <h3 class="step-title">Creation</h3>
+        </div>
+        <div class="step-content">
+          <p class="step-description">Crafted pixel by pixel in the Haarlem studio. This is where the magic happens — your portrait comes to life through meticulous digital craftsmanship, blending classical artistry with modern precision.</p>
+          
+          <!-- Haarlem Visual -->
+          <div class="haarlem-visual">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Haarlem_Grote_Markt_027.jpg/800px-Haarlem_Grote_Markt_027.jpg" 
+                 alt="Grote Markt in Haarlem with Sint-Bavokerk"
+                 loading="lazy">
+            <div class="haarlem-caption">
+              The historic Grote Markt in Haarlem, home of the OEVER.ART studio
+              <br>
+              <a href="https://commons.wikimedia.org/wiki/File:Haarlem_Grote_Markt_027.jpg" target="_blank" rel="noopener" class="image-credits">Image: Wikimedia Commons (CC BY-SA 4.0)</a>
+            </div>
+          </div>
+          
+          <!-- Process Timeline -->
+          <div class="process-timeline">
+            <div class="timeline-item">
+              <h4>Draft</h4>
+              <p>Initial composition and structure established based on our consultation</p>
+            </div>
+            <div class="timeline-item">
+              <h4>Build</h4>
+              <p>Layer by layer, details emerge — skin tones, textures, light, and shadow</p>
+            </div>
+            <div class="timeline-item">
+              <h4>Internal QA</h4>
+              <p>Rigorous review for color accuracy, composition balance, and emotional impact</p>
+            </div>
+            <div class="timeline-item">
+              <h4>Private Preview</h4>
+              <p>Your first look at the completed artwork, ready for your feedback</p>
+            </div>
+          </div>
+          
+          <ul class="step-features">
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">Regular progress updates with work-in-progress previews</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">Multiple refinement passes to achieve the perfect expression</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text">Color-calibrated workflow ensuring print accuracy</span>
+            </li>
+          </ul>
+          <button class="step-cta" data-open-inquiry>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Request a Custom Inquiry
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 4: Review & Refinement -->
+      <section id="review" class="process-section">
+        <div class="step-header">
+          <div class="step-number">04</div>
+          <h3 class="step-title">Review & Refinement</h3>
+        </div>
+        <div class="step-content">
+          <p class="step-description">Private preview with up to two revision rounds until perfection. This collaborative phase ensures the final artwork exceeds your expectations and captures exactly what you envisioned.</p>
+          <ul class="step-features">
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Private preview</strong> — High-resolution watermarked image for your review</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Up to two revision rounds</strong> included with every commission</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>What counts as a revision:</strong> Color adjustments, minor compositional changes, detail refinements</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>What does not count:</strong> Complete style changes or new concepts (these require a new commission)</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Typical turnaround:</strong> 3-5 business days per revision round</span>
+            </li>
+          </ul>
+          <button class="step-cta" data-open-inquiry>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Request a Custom Inquiry
+          </button>
+        </div>
+      </section>
+
+      <!-- Step 5: Delivery -->
+      <section id="delivery" class="process-section">
+        <div class="step-header">
+          <div class="step-number">05</div>
+          <h3 class="step-title">Delivery</h3>
+        </div>
+        <div class="step-content">
+          <p class="step-description">Your final masterpiece, delivered as a museum-grade print or high-res digital file. We ensure your artwork arrives ready to become a cherished centerpiece in your home or collection.</p>
+          <ul class="step-features">
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>High-resolution digital file</strong> — Print-ready at your specified dimensions</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Museum-grade print options</strong> — Canvas, aluminum, acrylic glass, or ArtFrame</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Print purchases via Werk aan de Muur</strong> — Professional fulfillment with free shipping</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Shipping notifications</strong> — Track your print from production to delivery</span>
+            </li>
+            <li>
+              <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span class="feature-text"><strong>Support:</strong> For print-related inquiries, contact Werk aan de Muur directly; for artwork questions, reach out to floris@oever.art</span>
+            </li>
+          </ul>
+          <p style="color: #888; margin-bottom: 20px;"><em>Note: Production and fulfillment for print orders are handled by Werk aan de Muur, a trusted print-on-demand platform. OEVER.ART is an independent creator.</em></p>
+          <button class="step-cta" data-open-inquiry>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Request a Custom Inquiry
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h4>Single Subject Portrait</h4>
+        <div class="price">€ 1.250</div>
+        <ul>
+          <li>Up to 60×80 cm</li>
+          <li>High-res digital file</li>
+          <li>One revision round</li>
+          <li>4–6 week delivery</li>
+        </ul>
+        <button class="btn btn-secondary" style="width: 100%;" data-open-inquiry>Inquire</button>
+      </div>
+      
+      <div class="pricing-card featured">
+        <h4>Complex Composition Masterpiece</h4>
+        <div class="price">€ 2.500</div>
+        <ul>
+          <li>Up to 120×160 cm</li>
+          <li>Museum-grade print included</li>
+          <li>Two revision rounds</li>
+          <li>Personal consultation</li>
+          <li>6–10 week delivery</li>
+        </ul>
+        <button class="btn btn-primary" style="width: 100%;" data-open-inquiry>Inquire</button>
+      </div>
+      
+      <div class="pricing-card">
+        <h4>Multi-Subject / Series Legacy</h4>
+        <div class="price"><span>On request</span></div>
+        <ul>
+          <li>Any dimension</li>
+          <li>Multiple prints included</li>
+          <li>Unlimited revisions</li>
+          <li>Studio visit in Haarlem</li>
+          <li>Custom timeline</li>
+        </ul>
+        <button class="btn btn-secondary" style="width: 100%;" data-open-inquiry>Inquire</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="about-content">
+      <div class="about-text">
+        <h2 style="font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #c9a962; margin-bottom: 20px;">The Artist</h2>
+        <h3>Floris van de<br>Oever</h3>
+        <p>From a childhood spent surrounded by his grandparents' art collection near Artis in Amsterdam, Floris developed an obsessive eye for detail and a deep love for portraiture.</p>
+        <p>Today, working from his studio in Haarlem, he merges classical composition with digital precision — creating hyper-realistic portraits where every pixel, every color choice, and every shadow serves the emotional truth of the subject.</p>
+        <p>His work explores the themes of feminine beauty, nature, and the interplay between the organic and the digital — always pursuing perfection, never quite satisfied, always pushing further.</p>
+        <div class="stats">
+          <div class="stat">
+            <h4>36+</h4>
+            <p>Published Works</p>
+          </div>
+          <div class="stat">
+            <h4>10+</h4>
+            <p>Years Creating</p>
+          </div>
+          <div class="stat">
+            <h4>350k+</h4>
+            <p>Walls Filled via WADM</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">F</div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="section-header">
+      <h2>Haarlem Studio</h2>
+      <h3>Get in<br>Touch</h3>
+      <p style="color: #888; max-width: 500px; margin: 20px auto 0;">Whether you're commissioning a portrait or have a question about our print collection, we'd love to hear from you.</p>
+    </div>
+    
+    <div class="contact-content">
+      <form id="contact-form">
+        <div class="form-group">
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" name="name" required>
+        </div>
+        <div class="form-group">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>Inquiry Type</label>
+          <select name="inquiry_type">
+            <option value="Portrait Commission">Portrait Commission</option>
+            <option value="Print Inquiry">Print Inquiry</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Budget Range (Optional)</label>
+          <select name="budget">
+            <option value="">Select...</option>
+            <option value="Under €1,000">Under €1,000</option>
+            <option value="€1,000 – €2,500">€1,000 – €2,500</option>
+            <option value="€2,500 – €5,000">€2,500 – €5,000</option>
+            <option value="€5,000+">€5,000+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Message <span class="required">*</span></label>
+          <textarea name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Inquiry</button>
+        <p style="text-align: center; margin-top: 20px; color: #888;">Or email directly: <a href="mailto:floris@oever.art" style="color: #c9a962;">floris@oever.art</a></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>OEVER.ART</h4>
+        <p>Fine art from Haarlem.<br>Where classic meets digital.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#commissions">Commissions</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://instagram.com/oever.art" target="_blank" rel="noopener">Instagram @oever.art</a></li>
+          <li><a href="mailto:floris@oever.art">floris@oever.art</a></li>
+          <li>Haarlem, The Netherlands</li>
+        </ul>
+      </div>
+      
+      <!-- Footer Map Section -->
+      <div class="footer-section">
+        <h4>Studio Location</h4>
+        <div class="map-container" style="margin-bottom: 16px;">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.465428509946!2d4.6351!3d52.3814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c6097c1b9c7a9b%3A0x3e1f3c1b9c7a9b!2sDreef%202%2C%202011%20ZR%20Haarlem%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1700000000000!5m2!1sen!2snl"
+            width="100%" 
+            height="200" 
+            style="border:0; border-radius: 8px; filter: grayscale(0.8) invert(0.9);"
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 8px;">
+          <strong style="color: #c9a962;">OEVER.ART</strong><br>
+          Dreef 2, 2011 ZR<br>
+          Haarlem, Netherlands
+        </p>
+        <a href="https://maps.google.com/?q=Dreef+2+Haarlem+Netherlands" target="_blank" rel="noopener" style="color: #c9a962; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Open in Google Maps
+        </a>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Shop Prints</h4>
+        <p><a href="https://www.werkaandemuur.nl/nl/shop/Floris-van-de-Oever" target="_blank" rel="noopener">Browse on Werk aan de Muur</a></p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">Print purchases are fulfilled via Werk aan de Muur. OEVER.ART is an independent creator; WADM does not endorse this website.</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 OEVER.ART — All rights reserved. Crafted with precision in Haarlem.</p>
+    </div>
+  </footer>
+
+  <!-- Inquiry Modal -->
+  <div id="inquiry-modal" class="inquiry-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Request a Custom Inquiry</h2>
+        <button class="modal-close" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="inquiry-form">
+          <div class="pricing-info">
+            <h4>Pricing</h4>
+            <p><strong class="price">€2,500</strong> — Master Complex Composition Masterpiece</p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">Portrait and Legacy commissions: Price on request</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="inquiry-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="inquiry-name" name="name" required placeholder="Your full name">
+          </div>
+          
+          <div class="form-group">
+            <label for="inquiry-email">Email <span class="required">*</span></label>
+            <input type="email" id="inquiry-email" name="email" required placeholder="your@email.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="inquiry-type">Inquiry Type</label>
+            <select id="inquiry-type" name="inquiry_type">
+              <option value="Portrait">Portrait</option>
+              <option value="Legacy">Legacy</option>
+              <option value="Master Complex Composition Masterpiece">Master Complex Composition Masterpiece</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="inquiry-budget">Budget Range (Optional)</label>
+            <select id="inquiry-budget" name="budget">
+              <option value="">Select budget range...</option>
+              <option value="Under €1,000">Under €1,000</option>
+              <option value="€1,000 – €2,500">€1,000 – €2,500</option>
+              <option value="€2,500">€2,500 (Masterpiece tier)</option>
+              <option value="€2,500 – €5,000">€2,500 – €5,000</option>
+              <option value="€5,000+">€5,000+</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="inquiry-message">Message <span class="required">*</span></label>
+            <textarea id="inquiry-message" name="message" required placeholder="Tell us about your vision, timeline, and any reference materials you have..."></textarea>
+          </div>
+          
+          <button type="submit" class="btn-submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="margin-right: 8px; vertical-align: middle;">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Send Inquiry
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/inquiry-modal.js"></script>
+  <script src="js/scroll-anchors.js"></script>
+  <script>
+    // Category filter functionality
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.dataset.filter;
+        
+        // Update active button
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter products
+        document.querySelectorAll('.product-card').forEach(card => {
+          const categories = card.dataset.categories || '';
+          if (filter === 'all' || categories.includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Contact form handler
+    document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      
+      const subject = `Contact: ${data.inquiry_type || 'General'} - ${data.name}`;
+      const body = `Name: ${data.name}
+Email: ${data.email}
+Inquiry Type: ${data.inquiry_type || 'Not specified'}
+Budget Range: ${data.budget || 'Not specified'}
+
+Message:
+${data.message}`;
+      
+      window.location.href = `mailto:floris@oever.art?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Save to localStorage
+      const submissions = JSON.parse(localStorage.getItem('oever_contact_submissions') || '[]');
+      submissions.push({ ...data, submitted_at: new Date().toISOString() });
+      localStorage.setItem('oever_contact_submissions', JSON.stringify(submissions));
+      
+      alert('Thank you for your inquiry! Your email client should open. If not, please email floris@oever.art directly.');
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(10, 10, 10, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+      } else {
+        header.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%)';
+        header.style.backdropFilter = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
